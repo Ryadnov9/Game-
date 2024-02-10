@@ -1,11 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+
+body, html {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+}
+
 body{ 
     margin: 0;
     text-align: center;
     font-family: 'Press Start 2P', cursive;
     user-select: none;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    position: relative;
 
 }
 header{
@@ -18,10 +29,11 @@ header{
     margin: 0  auto;
     width: 100%;
     max-width: 431px;
-   
-   
-   }
-   
+    height: 100%;
+    
+ }
+
+
  h1{ 
    
     background: url(./flappy-bird-set.png) 0% 340px;
@@ -36,3 +48,14 @@ header{
     padding: 8px 6px;
     background: #0D9276;
  }
+
+
+
+ @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+   #canvas {
+       width: 90%; 
+       height: auto; 
+   }
+}
+
+
