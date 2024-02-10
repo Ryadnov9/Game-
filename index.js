@@ -9,9 +9,6 @@ img.src = './flappy-bird-set.png'
 // general sett
 let gamePlaying = false
 
-let playerName = ''
-
-
 const gravity = 0.5,
     speed = 7.5,
     size = [51, 36],
@@ -27,16 +24,11 @@ let index = 0,
     pipe,
     pipes
 
-
-
-
-
     
 // pipe
 const pipeWidth = 78,
     pipeGap = 350,
     pipeLoc = () => (Math.random() * ((canvas.height - (pipeGap + pipeWidth)) - pipeWidth)) + pipeWidth
-
 
 
 const setup = () => {
@@ -52,8 +44,6 @@ const setup = () => {
         canvas.width + (i * (pipeGap + pipeWidth)), pipeLoc()
     ])
 }
-
-
 
 const render = () => {
 
@@ -74,8 +64,8 @@ const render = () => {
     )
 
 
-     //background second part
 
+     //background second part
     ctx.drawImage(
         img,
         0,
@@ -162,8 +152,6 @@ const render = () => {
         )
 
 
-
-
         flight += gravity
         flyHeight = Math.min(flyHeight + flight, canvas.height - size[1])
     } else {
@@ -188,7 +176,6 @@ const render = () => {
 }
 
 
-
 let lastRenderTime = 0
 setup()
 img.onload = startGame
@@ -201,10 +188,42 @@ function startGame() {
 }
 
 
+// Функция для определения типа устройства
+function detectDeviceType() {
+    // Проверяем, является ли устройство мобильным
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return 'mobile'
+    } else {
+        return 'desktop'
+    }
+}
+
+// Функция для адаптации параметров игры в зависимости от типа устройства
+// Функция для адаптации параметров игры в зависимости от типа устройства
+function adaptForDeviceType(deviceType) {
+    if (deviceType === 'mobile') {
+        // Изменяем параметры для мобильных устройств
+        // Например, увеличиваем скорость игры и сокращаем интервал между трубами
+        speed = 10;
+        jump = -15;
+        pipeGap = 250;
+        // И т.д.
+    } else {
+        // Изменяем параметры для настольных устройств
+        // Например, уменьшаем скорость игры и увеличиваем интервал между трубами
+        speed = 5;
+        pipeGap = 350;
+        // И т.д.
+    }
+}
 
 
-// Show overlay
-window.onload = displayOverlay
+// Вызываем функции адаптации при загрузке страницы
+window.onload = function() {
+    const deviceType = detectDeviceType()
+    adaptForDeviceType(deviceType)
+    // Далее продолжайте ваш код игры...
+}
 
 // start
 document.addEventListener('click', () => gamePlaying = true)
