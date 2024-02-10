@@ -21,12 +21,7 @@ header{
    
    
    }
-
-   #canvas {
-      margin: auto 0; /* Вертикальное выравнивание по центру */
-      max-height: 100vh; /* Максимальная высота равна высоте окна браузера */
-  }
-
+   
  h1{ 
    
     background: url(./flappy-bird-set.png) 0% 340px;
