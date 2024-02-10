@@ -10,11 +10,20 @@ body{
 }
 header{
     margin: 0  auto;
-    width: 431px;
+    width: 100%;
+    max-width: 431px;
     
+ }
+ #canvas{
+    margin: 0  auto;
+    width: 100%;
+    max-width: 431px;
+   height: 100%;
+
  }
 
  h1{ 
+   
     background: url(./flappy-bird-set.png) 0% 340px;
     padding: 1.2rem 0;
     margin:0;
