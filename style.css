@@ -18,9 +18,14 @@ header{
     margin: 0  auto;
     width: 100%;
     max-width: 431px;
-   height: 100%;
+   
+   
+   }
 
- }
+   #canvas {
+      margin: auto 0; /* Вертикальное выравнивание по центру */
+      max-height: 100vh; /* Максимальная высота равна высоте окна браузера */
+  }
 
  h1{ 
    
