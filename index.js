@@ -23,7 +23,7 @@ let index = 0,
     currentScore,
     pipe,
     pipes
-
+    
     
 // pipe
 const pipeWidth = 78,
