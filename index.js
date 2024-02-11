@@ -188,9 +188,8 @@ function startGame() {
 }
 
 
-// Функция для определения типа устройства
 function detectDeviceType() {
-    // Проверяем, является ли устройство мобильным
+    
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         return 'mobile'
     } else {
@@ -199,11 +198,10 @@ function detectDeviceType() {
 }
 
 
-// Вызываем функции адаптации при загрузке страницы
 window.onload = function() {
     const deviceType = detectDeviceType()
     adaptForDeviceType(deviceType)
-    // Далее продолжайте ваш код игры...
+    
 }
 
 // start
