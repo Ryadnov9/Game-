@@ -10,9 +10,9 @@ img.src = './flappy-bird-set.png'
 let gamePlaying = false
 
 const gravity = 0.5,
-    speed = 8.9,
+    speed = 8.7,
     size = [51, 36],
-    jump = -10,
+    jump = -11,
     cTenth = canvas.width / 10
 
 
