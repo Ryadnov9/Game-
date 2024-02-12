@@ -10,9 +10,9 @@ img.src = './flappy-bird-set.png'
 let gamePlaying = false
 
 const gravity = 0.5,
-    speed = 7.5,
+    speed = 8.9,
     size = [51, 36],
-    jump = -11,
+    jump = -10,
     cTenth = canvas.width / 10
 
 
@@ -27,7 +27,7 @@ let index = 0,
     
 // pipe
 const pipeWidth = 78,
-    pipeGap = 350,
+    pipeGap = 325,
     pipeLoc = () => (Math.random() * ((canvas.height - (pipeGap + pipeWidth)) - pipeWidth)) + pipeWidth
 
 
@@ -209,6 +209,23 @@ document.addEventListener('click', () => {
     if (!gamePlaying) {
         gamePlaying = true
         flight = jump
+    }
+})
+
+
+// Add event listener for keydown event
+document.addEventListener('keydown', (event) => {
+    // Check if the pressed key is spacebar (keyCode 32)
+    if (event.keyCode === 32) {
+        // If the game is not playing and spacebar is pressed, start the game
+        if (!gamePlaying) {
+            gamePlaying = true
+            flight = jump
+        }
+        // If the game is playing, make the bird jump
+        else {
+            flight = jump
+        }
     }
 })
 window.onclick = () => flight = jump
