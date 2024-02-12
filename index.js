@@ -205,5 +205,10 @@ window.onload = function() {
 }
 
 // start
-document.addEventListener('click', () => gamePlaying = true)
+document.addEventListener('click', () => {
+    if (!gamePlaying) {
+        gamePlaying = true
+        flight = jump
+    }
+})
 window.onclick = () => flight = jump
