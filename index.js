@@ -214,27 +214,67 @@ document.addEventListener('click', () => {
 
 
 
-// Функция, вызываемая по завершении игры
-function endGame() {
-    // Получение результата игры, например, количество очков
-    const gameResult = getGameResult() // Функция, которая получает результат игры
 
-    // Отправка результатов игры на сервер
-    postGameStat({ result: gameResult }) // Передача результата игры в функцию postGameStat
+
+let result = 0
+
+// При каждом заработанном очке игроком, вы увеличиваете значение переменной result
+function playerScoresPoint() {
+    result += 1 
 }
 
-// Функция для отправки результатов игры на сервер
-function postGameStat(data) {
-    const url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/?format=api'
+// Когда игра завершается, вызывается функция для отправки результата игры на сервер
+function endGame() {
+    const gameId = 'uuid' 
+    sendGameResult(gameId, result) 
+}
+
+
+
+
+// отправить результат(POST)
+
+function sendGameResult(gameId1, playerResult) {
+    const url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/'
+
+    const data = {
+        game_id: gameId1,
+        result: playerResult
+    }
 
     fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            // Другие заголовки, если необходимо
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
     })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ответ сети был не в порядке')
+        }
+        return response.json()
+    })
+    .then(data => {
+        console.log('Результаты игры успешно отправлены:', data)
+    })
+    .catch(error => {
+        console.error('Произошла проблема с отправкой результатов игры:', error)
+    })
+}
+
+const gameId1 = 'uuid'
+sendGameResult(gameId1, playerResult)
+
+// получение данных 
+
+function getAllGameResults(gameId2) {
+    let url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/?format=api'
+    if (gameId2) {
+        url += `&game_id=${gameId2}`
+    }
+
+    fetch(url)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok')
@@ -242,33 +282,15 @@ function postGameStat(data) {
         return response.json()
     })
     .then(data => {
-        console.log('Результаты игры успешно отправлены на сервер:', data)
+        console.log('Результаты всех игр:', data)
     })
     .catch(error => {
-        console.error('There was a problem with the fetch operation:', error)
+        console.error('Произошла ошибка при получении результатов игры:', error)
     })
 }
 
-// Пример использования:
-// Например, вызываем endGame() при завершении игры
-endGame()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const gameId2 = 'uuid' 
+getAllGameResults(gameId)
 
 
 
