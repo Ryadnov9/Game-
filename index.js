@@ -12,7 +12,7 @@ let gamePlaying = false
 const gravity = 0.5,
     speed = 8.7,
     size = [51, 36],
-    jump = -11,
+    jump = -10,
     cTenth = canvas.width / 10
 
 
