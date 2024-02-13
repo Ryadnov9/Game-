@@ -217,12 +217,10 @@ document.addEventListener('click', () => {
 document.addEventListener('keydown', (event) => {
     // Check if the pressed key is spacebar (keyCode 32)
     if (event.keyCode === 32) {
-        // If the game is not playing and spacebar is pressed, start the game
         if (!gamePlaying) {
             gamePlaying = true
             flight = jump
         }
-        // If the game is playing, make the bird jump
         else {
             flight = jump
         }
