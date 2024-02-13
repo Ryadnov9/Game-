@@ -213,6 +213,65 @@ document.addEventListener('click', () => {
 })
 
 
+
+// Функция, вызываемая по завершении игры
+function endGame() {
+    // Получение результата игры, например, количество очков
+    const gameResult = getGameResult() // Функция, которая получает результат игры
+
+    // Отправка результатов игры на сервер
+    postGameStat({ result: gameResult }) // Передача результата игры в функцию postGameStat
+}
+
+// Функция для отправки результатов игры на сервер
+function postGameStat(data) {
+    const url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/?format=api'
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Другие заголовки, если необходимо
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok')
+        }
+        return response.json()
+    })
+    .then(data => {
+        console.log('Результаты игры успешно отправлены на сервер:', data)
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error)
+    })
+}
+
+// Пример использования:
+// Например, вызываем endGame() при завершении игры
+endGame()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Add event listener for keydown event
 document.addEventListener('keydown', (event) => {
     // Check if the pressed key is spacebar (keyCode 32)
