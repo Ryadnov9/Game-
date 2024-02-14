@@ -186,24 +186,8 @@ function startGame() {
   setInterval(update, 1000 / 120)
   
 }
-
-
-function detectDeviceType() {
-    
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        return 'mobile'
-    } else {
-        return 'desktop'
-    }
+function update() {
 }
-
-
-window.onload = function() {
-    const deviceType = detectDeviceType()
-    adaptForDeviceType(deviceType)
-    
-}
-
 // start
 document.addEventListener('click', () => {
     if (!gamePlaying) {
@@ -214,83 +198,6 @@ document.addEventListener('click', () => {
 
 
 
-
-
-let result = 0
-
-// При каждом заработанном очке игроком, вы увеличиваете значение переменной result
-function playerScoresPoint() {
-    result += 1 
-}
-
-// Когда игра завершается, вызывается функция для отправки результата игры на сервер
-function endGame() {
-    const gameId = 'uuid' 
-    sendGameResult(gameId, result) 
-}
-
-
-
-
-// отправить результат(POST)
-
-function sendGameResult(gameId1, playerResult) {
-    const url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/'
-
-    const data = {
-        game_id: gameId1,
-        result: playerResult
-    }
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Ответ сети был не в порядке')
-        }
-        return response.json()
-    })
-    .then(data => {
-        console.log('Результаты игры успешно отправлены:', data)
-    })
-    .catch(error => {
-        console.error('Произошла проблема с отправкой результатов игры:', error)
-    })
-}
-
-const gameId1 = 'uuid'
-sendGameResult(gameId1, playerResult)
-
-// получение данных 
-
-function getAllGameResults(gameId2) {
-    let url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/?format=api'
-    if (gameId2) {
-        url += `&game_id=${gameId2}`
-    }
-
-    fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok')
-        }
-        return response.json()
-    })
-    .then(data => {
-        console.log('Результаты всех игр:', data)
-    })
-    .catch(error => {
-        console.error('Произошла ошибка при получении результатов игры:', error)
-    })
-}
-
-const gameId2 = 'uuid' 
-getAllGameResults(gameId)
 
 
 
@@ -307,4 +214,54 @@ document.addEventListener('keydown', (event) => {
         }
     }
 })
+
+
 window.onclick = () => flight = jump
+    
+
+
+function sendGameResult(gameId, authToken) {
+    const url = 'https://test.ksu24.kspu.edu/api/v2/my/game_stat/'
+
+    const data = {
+        "created": "2024-02-13, 21:17:50,395000+02:00",
+        "game_id": gameId,
+        "score": bestScore,
+        "sign": "sha256" 
+    }
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'accept': 'application/json',
+            'X-CSRFTOKEN': 'ftitpL8Q0PONnk9Hun9Co8wLUpc1NyDzIVOR50V9wtdcoItLbVopthdI08YuMnxv', 
+            'Authorization': `Bearer ${authToken}`
+
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok')
+            }
+            return response.json()
+        })
+        .then(data => {
+            console.log('Success:', data)
+        })
+        .catch(error => {
+            console.error('Error:', error)
+        })
+}
+
+// вызова функции для отправки результатов игры на сервер
+const gameId = 'uuid'
+const authToken = ''
+sendGameResult(gameId, authToken)
+
+
+
+
